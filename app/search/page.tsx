@@ -1,26 +1,24 @@
 import ArticleList from '@/components/feature/ArticleList';
 import Pagination from '@/components/ui/Pagination';
-import { LIMIT } from '@/constants';
 import { getList } from '@/libs/microcms';
 
 type Props = {
-  params: {
-    current: string;
+  searchParams: {
+    q?: string;
   };
 };
 
 export const revalidate = 60;
 
-export default async function Page({ params }: Props) {
-  const current = parseInt(params.current as string, 10);
+export default async function Page({ searchParams }: Props) {
   const data = await getList({
-    limit: LIMIT,
-    offset: LIMIT * (current - 1),
+    q: searchParams.q,
   });
+
   return (
     <>
       <ArticleList articles={data.contents} />
-      <Pagination totalCount={data.totalCount} current={current} />
+      <Pagination totalCount={data.totalCount} basePath='/search' q={searchParams.q} />
     </>
   );
 }

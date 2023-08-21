@@ -1,5 +1,8 @@
-import { formatDate, formatRichText } from '@/libs/utils';
+import { formatRichText } from '@/libs/utils';
 import { type Article } from '@/types/type';
+
+import PublishedDate from '../Date';
+import TagList from '../TagList';
 
 import styles from './index.module.css';
 
@@ -7,10 +10,11 @@ type Props = {
   data: Article;
 };
 
-const Article = ({ data }: Props) => {
+export default function Article({ data }: Props) {
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>{data.title}</h1>
+      <TagList tags={data.tags} />
       <p className={styles.description}>{data.description}</p>
       <div className={styles.meta}>
         {data.writer && (
@@ -31,9 +35,7 @@ const Article = ({ data }: Props) => {
             <span className={styles.writerName}>{data.writer?.name}</span>
           </div>
         )}
-        <div>
-          <time>{formatDate(data.publishedAt || data.createdAt)}</time>
-        </div>
+        <PublishedDate date={data.publishedAt || data.createdAt} />
       </div>
       <picture>
         <source
@@ -61,6 +63,4 @@ const Article = ({ data }: Props) => {
       />
     </main>
   );
-};
-
-export default Article;
+}

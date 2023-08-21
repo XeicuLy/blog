@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { LIMIT } from '@/constants';
 
 import styles from './index.module.css';
@@ -5,18 +7,20 @@ import styles from './index.module.css';
 type Props = {
   totalCount: number;
   current?: number;
+  basePath?: string;
+  q?: string;
 };
 
-export const Pagenation = ({ totalCount, current = 1 }: Props) => {
+export default function Pagination({ totalCount, current = 1, basePath = '', q }: Props) {
   const pages = Array.from({ length: Math.ceil(totalCount / LIMIT) }).map((_, i) => i + 1);
   return (
     <ul className={styles.container}>
       {pages.map((p) => (
         <li className={styles.list} key={p}>
           {current !== p ? (
-            <a href={`/p/${p}`} className={styles.item}>
+            <Link href={`${basePath}/p/${p}` + (q ? `?q=${q}` : '')} className={styles.item}>
               {p}
-            </a>
+            </Link>
           ) : (
             <span className={`${styles.item} ${styles.current}`}>{p}</span>
           )}
@@ -24,4 +28,4 @@ export const Pagenation = ({ totalCount, current = 1 }: Props) => {
       ))}
     </ul>
   );
-};
+}
