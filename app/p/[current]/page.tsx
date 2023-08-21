@@ -8,9 +8,17 @@ import { formatDate } from '@/libs/utils';
 
 import styles from './page.module.css';
 
-const Page = async () => {
+type Props = {
+  params: {
+    current: string;
+  };
+};
+
+export default async function Page({ params }: Props) {
+  const current = parseInt(params.current as string, 10);
   const data = await getList({
     limit: LIMIT,
+    offset: LIMIT * (current - 1),
   });
   return (
     <div>
@@ -30,7 +38,7 @@ const Page = async () => {
                     srcSet={`${article.thumbnail?.url}?fm=webp&fit=crop&w=240&h=126 1x, ${article.thumbnail?.url}?fm=webp&fit=crop&w=240&h=126&dpr=2 2x`}
                   />
                   <img
-                    src={article.thumbnail?.url || `/noimage.png`}
+                    src={article.thumbnail?.url || `/no-image.png`}
                     alt=''
                     className={styles.image}
                     width={article.thumbnail?.width}
@@ -48,8 +56,7 @@ const Page = async () => {
           </li>
         ))}
       </ul>
-      <Pagenation totalCount={data.totalCount} />
+      <Pagenation totalCount={data.totalCount} current={current} />
     </div>
   );
-};
-export default Page;
+}
