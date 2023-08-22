@@ -4,7 +4,7 @@ import { formatRichText } from '@/libs/utils';
 import PublishedDate from '../Date';
 import TagList from '../TagList';
 
-import styles from './index.module.css';
+import './index.css';
 
 type Props = {
   data: Article;
@@ -12,13 +12,13 @@ type Props = {
 
 export default function Article({ data }: Props) {
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>{data.title}</h1>
+    <main className='flex flex-col items-center justify-center'>
+      <h1 className='mb-6 text-center text-4xl sm:mb-5 sm:text-center sm:text-3xl'>{data.title}</h1>
       <TagList tags={data.tags} />
-      <p className={styles.description}>{data.description}</p>
-      <div className={styles.meta}>
+      <p className='mx-10 my-6 text-center text-base text-gray-500 sm:mb-0 sm:mt-6'>{data.description}</p>
+      <div className='mb-16 flex items-center sm:mb-10 sm:text-center'>
         {data.writer && (
-          <div className={styles.writer}>
+          <div className='flex items-center justify-center border-r border-solid border-gray-500 pr-10 sm:mr-6 sm:pr-6'>
             <picture>
               <source
                 type='image/webp'
@@ -27,12 +27,12 @@ export default function Article({ data }: Props) {
               <img
                 src={data.writer?.image?.url}
                 alt=''
-                className={styles.writerIcon}
+                className='block h-12 w-12 rounded-full sm:h-8 sm:w-8'
                 width={data.writer?.image?.width}
                 height={data.writer?.image?.height}
               />
             </picture>
-            <span className={styles.writerName}>{data.writer?.name}</span>
+            <span className='ml-4'>{data.writer?.name}</span>
           </div>
         )}
         <PublishedDate date={data.publishedAt || data.createdAt} />
@@ -50,13 +50,13 @@ export default function Article({ data }: Props) {
         <img
           src={data.thumbnail?.url}
           alt=''
-          className={styles.thumbnail}
+          className='mb-16 h-auto w-960 sm:mb-10 sm:w-full'
           width={data.thumbnail?.width}
           height={data.thumbnail?.height}
         />
       </picture>
       <div
-        className={styles.content}
+        className='content w-720'
         dangerouslySetInnerHTML={{
           __html: `${formatRichText(data.content)}`,
         }}

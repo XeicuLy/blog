@@ -5,7 +5,6 @@ import { LIMIT } from '@/constants';
 import { getTagList } from '@/libs/microcms';
 
 import '@/styles/globals.css';
-import styles from './layout.module.css';
 
 export const metadata = {
   metadataBase: new URL(process.env.BASE_URL || 'http://localhost:3000'),
@@ -34,7 +33,7 @@ export default async function RootLayout({ children }: Props) {
       <body>
         <Header />
         <Nav tags={tags.contents} />
-        <main className={styles.main}>{children}</main>
+        <main className='mx-auto my-0 w-720 sm:w-auto sm:p-6'>{children}</main>
         <Footer />
       </body>
     </html>
