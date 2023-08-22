@@ -1,18 +1,24 @@
 import ArticleList from '@/components/ArticleList';
 import Pagination from '@/components/Pagination';
-import { LIMIT } from '@/constants';
 import { getList } from '@/libs/microcms';
 
-export const revalidate = 0;
+type Props = {
+  searchParams: {
+    q?: string;
+  };
+};
 
-export default async function Page() {
+export const revalidate = 60;
+
+export default async function Page({ searchParams }: Props) {
   const data = await getList({
-    limit: LIMIT,
+    q: searchParams.q,
   });
+
   return (
     <>
       <ArticleList articles={data.contents} />
-      <Pagination totalCount={data.totalCount} />
+      <Pagination totalCount={data.totalCount} basePath='/search' q={searchParams.q} />
     </>
   );
 }
