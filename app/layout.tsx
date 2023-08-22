@@ -4,7 +4,7 @@ import Nav from '@/components/Nav';
 import { LIMIT } from '@/constants';
 import { getTagList } from '@/libs/microcms';
 
-import './globals.css';
+import '@/styles/globals.css';
 import styles from './layout.module.css';
 
 export const metadata = {
