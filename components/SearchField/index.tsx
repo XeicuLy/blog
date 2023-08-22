@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 
-import styles from './index.module.css';
+import './index.css';
 
 export default function SearchField() {
   const [composing, setComposition] = useState(false);
@@ -25,7 +25,7 @@ export default function SearchField() {
       type='search'
       name='q'
       ref={inputRef}
-      className={styles.search}
+      className='search box-border h-10 w-600 rounded-2xl border border-solid border-gray-400 py-0 pl-12 pr-6 sm:mx-6 sm:my-0 sm:w-full'
       placeholder='Search...'
       onKeyDown={_onEnter}
       onCompositionStart={startComposition}
